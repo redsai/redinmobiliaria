@@ -1,0 +1,27 @@
+<div class="container my-5">
+
+  <section>
+    
+    <div class="card mb-4" >
+          <h5 class="font-weight-normal mb-3">Nombres: {{ users.nombres }}</h5>
+          <h5 class="font-weight-normal mb-3">Apellidos: {{ users.apellidos }}</h5>
+          <h5 class="font-weight-normal mb-3">Email: {{ users.email }}</h5>
+          <h5 class="font-weight-normal mb-3">Celular: {{ users.celular }}</h5>
+          <h5 class="font-weight-normal mb-3">Fecha Nacimiento: {{ users.fechaNacimiento }}</h5>
+          <h5 class="font-weight-normal mb-3">Sexo: {{ users.sexo }}</h5>
+          <a href="{{ users.foto }}" data-lightbox="roadtrip" >
+            <img src="{{ users.foto }}" alt="thumbnail" class="img-thumbnail"
+            style="width: 200px">
+          </a>          
+          <h5 class="font-weight-normal mb-3">Cedula: <a href="{{ users.cedula }}" target="_blank">Descargar</a></h5>
+          <h5 class="font-weight-normal mb-3">Ciudad: {{ users.Ciudad.name }}</h5>
+          <h5 class="font-weight-normal mb-3">PerfilFacebook: {{ users.PerfilFacebook }}</h5>
+          <h5 class="font-weight-normal mb-3">NombreEmpresa: {{ users.NombreEmpresa }}</h5>
+          <h5 class="font-weight-normal mb-3">NitEmpresa: {{ users.NitEmpresa }}</h5>
+          <h5 class="font-weight-normal mb-3">inmobiliarioIndep: {{ users.inmobiliarioIndep }}</h5>
+          <h5 class="font-weight-normal mb-3">aniosInmobiliario: {{ users.aniosInmobiliario }}</h5>
+          <h5 class="font-weight-normal mb-3">Tarjeta de presentacion: <a href="{{ users.tarjetaPresntacion }}" target="_blank">Descargar</a></h5>
+          <h5 class="font-weight-normal mb-3">Brochure empresarial: <a href="{{ users.brochureEmpresarial }}" target="_blank">Descargar</a></h5>
+    </div>
+  </section>
+</div>

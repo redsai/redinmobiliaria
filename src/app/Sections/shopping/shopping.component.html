@@ -1,0 +1,80 @@
+<div class="card">
+    <div class="panel panel-default">
+      <div class="col-md-12 border-top">
+        <div class="status-upload card-body">
+          <form [formGroup]="myForm" (submit)="onSubmit()">
+            <h5 class="card-title"><strong>Compra Inmueble</strong></h5>
+            <input type="text" name="nameProperty" placeholder="Nombre Inmueble*" aria-label="Search" id="NombreInmueble" formControlName="NombreInmueble" class="form-control" value="">
+            <br>
+            <textarea class="form-control" placeholder="Ingrese inmueble que busca y valor que tiene...*" id="DescripcionInmueble" name="DescripcionInmueble" formControlName="DescripcionInmueble"></textarea>
+            <br>
+            <div class="row">
+              <div class="col-md-4">
+                <ng-autocomplete formControlName="Departamento"
+                [data]="data1"
+                [searchKeyword]="keyword"
+                placeHolder=" Departamento*"
+                (selected)='selectEvent($event)'
+                [itemTemplate]="itemTemplate"
+                [notFoundTemplate]="notFoundTemplate"
+                >
+                </ng-autocomplete>
+                <ng-template #itemTemplate let-item>
+                  <a [innerHTML]="item.name"></a>
+                </ng-template>
+                  
+                  <ng-template #notFoundTemplate let-notFound>
+                  <div [innerHTML]="notFound"></div>
+                  </ng-template>
+              </div>
+              
+              <div class="col-md-4">
+                <ng-autocomplete formControlName="Ciudad"
+                [data]="data"
+                [searchKeyword]="keyword"
+                placeHolder="Ciudad*"
+                (selected)='selectEventBarrios($event)'
+                [itemTemplate]="itemTemplate"
+                [notFoundTemplate]="notFoundTemplate"
+                >
+                </ng-autocomplete>
+                <ng-template #itemTemplate let-item>
+                  <a [innerHTML]="item.name"></a>
+                </ng-template>
+                  
+                  <ng-template #notFoundTemplate let-notFound>
+                  <div [innerHTML]="notFound"></div>
+                  </ng-template>
+              </div>
+              <div class="col-md-4">
+                <ng-autocomplete formControlName="Barrio"
+                [data]="data2"
+                [searchKeyword]="keyword"
+                placeHolder="Barrio*"
+                [itemTemplate]="itemTemplate"
+                [notFoundTemplate]="notFoundTemplate"
+                >
+                </ng-autocomplete>
+                <ng-template #itemTemplate let-item>
+                  <a [innerHTML]="item.name"></a>
+                </ng-template>
+                  
+                  <ng-template #notFoundTemplate let-notFound>
+                  <div [innerHTML]="notFound"></div>
+                  </ng-template>
+              </div>
+            </div>
+            <br>
+            <ul class="nav nav-pills pull-left ">
+              <li><a title=""><i class="glyphicon glyphicon-bullhorn"></i></a></li>
+              <li><a title=""><i class=" glyphicon glyphicon-facetime-video"></i></a></li>
+              <li><a title=""><i class="glyphicon glyphicon-picture"></i></a></li>
+            </ul>
+            <button type="submit" class="btn btn-success pull-right"> Enviar</button>
+          </form>
+        </div>
+        <!-- Status Upload  --> 
+        
+      </div>
+    </div>
+  </div>

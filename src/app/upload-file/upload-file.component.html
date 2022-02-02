@@ -1,0 +1,178 @@
+<form [formGroup]="myForm">
+  <label> <strong>Ingrese un mínimo de 5 inmuebles y un máximo de 25 para hacer uso de su cuenta gratuita.</strong></label>
+  <br>
+  <label for="exampleFormControlTextarea6">Seleccione imágenes del inmueble*</label>
+  <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop (onFileDropped)="uploadFile($event)">
+    <input hidden type="file" accept="image/png, .jpeg, .jpg"  #fileInput multiple (change)="uploadFile($event.target.files)" formControlName="NombreInmueble" name="NombreInmueble" class="form-control">
+  </div>
+    <div  class="files-list" *ngFor="let file of files;let i=index">
+      <p>{{ file }}</p>
+      <button class="delete-file" (click)="deleteAttachment(i)">
+        <img src="../../assets/Images/Recycle_Bin_Full.png">
+      </button>
+    </div>
+ 
+  <div class="alert alert-light" role="alert">{{ message }}</div>
+    <div class="form-group">
+    <label for="exampleFormControlTextarea6">Nombre del inmueble*</label>
+    <input type="text" aria-label="Search" id="NombreInmueble" name="NombreInmueble" formControlName="NombreInmueble" class="form-control" value="">
+    </div>
+    <div class="form-group shadow-textarea">
+      <label for="exampleFormControlTextarea6">Descripción del inmueble*</label>
+      <textarea class="form-control z-depth-1" id="DescripcionInmueble" name="DescripcionInmueble" formControlName="DescripcionInmueble" rows="3" placeholder="Ingrese una descripción ..."></textarea>
+    </div>
+    <div class="form-group">
+      <label for="exampleFormControlTextarea6">Precio*</label>
+      <input type="text" name="Precio" aria-label="Search" id="Precio" name="Precio" formControlName="Precio" class="form-control" value="">
+    </div>
+    <div class="row p-2">
+      <div class="col-md-6">        
+        <mat-label>Tipo de oferta*</mat-label>
+        <select id="top" class="browser-default custom-select" id="TipoOferta" name="TipoOferta" formControlName="TipoOferta"> 
+          <option value="" disabled="" selected>Seleccione tipo...</option>        
+          <option value="Venta">Venta</option>
+          <option value="Arriendo">Arriendo</option>          
+        </select>
+      </div>
+      <div class="col-md-6">        
+        <mat-label>Tipo de inmueble*</mat-label>
+        <select id="top" class="browser-default custom-select" id="TipoInmueble" name="TipoInmueble" formControlName="TipoInmueble">
+          <option value="" disabled="" selected>Seleccione tipo...</option>
+          <option value="Apartamento" >Apartamento</option>
+          <option value="Casa">Casa</option>
+          <option value="Finca">Finca</option>
+          <option value="Oficina">Oficina</option>
+          <option value="Local">Local</option>
+          <option value="Bodega">Bodega</option>
+          <option value="Lote">Lote</option>
+          <option value="Edificio">Edificio</option>
+          <option value="Apartaestudio">Apartaestudio</option>
+          <option value="Cabaña">Cabaña</option>
+        </select>
+      </div>
+    </div>
+    <!--<div class="form-group">
+      <label for="file">File</label>
+      <input 
+          formControlName="file"
+          id="file" 
+          type="file" 
+          class="form-control"
+          multiple="" 
+          (change)="onFileChange($event)">
+    </div>
+    <img *ngFor='let url of images'  [src]="url" height="150" width="200px" style="margin: 3px;"> <br/>
+  -->
+  <div class="row p-4">
+      <div class="col-md-4">
+        <ng-autocomplete formControlName="Departamento" 
+        [data]="data1"
+        [searchKeyword]="keyword"
+        placeHolder=" Departamento*"
+        (selected)='selectEvent($event)'
+        [itemTemplate]="itemTemplate"
+        [notFoundTemplate]="notFoundTemplate"
+        >
+        </ng-autocomplete>
+        <ng-template #itemTemplate let-item>
+          <a [innerHTML]="item.name"></a>
+        </ng-template>
+          
+          <ng-template #notFoundTemplate let-notFound>
+          <div [innerHTML]="notFound"></div>
+          </ng-template>
+      </div>
+      
+      <div class="col-md-4">
+        <ng-autocomplete formControlName="Ciudad"
+        [data]="data"
+        [searchKeyword]="keyword"
+        placeHolder="Ciudad*"
+        (selected)='selectEventBarrios($event)'
+        [itemTemplate]="itemTemplate"
+        [notFoundTemplate]="notFoundTemplate"
+        >
+        </ng-autocomplete>
+        <ng-template #itemTemplate let-item>
+          <a [innerHTML]="item.name"></a>
+        </ng-template>
+          
+          <ng-template #notFoundTemplate let-notFound>
+          <div [innerHTML]="notFound"></div>
+          </ng-template>
+      </div>
+      <div class="col-md-4">
+        <ng-autocomplete formControlName="Barrio"
+        [data]="data2"
+        [searchKeyword]="keyword"
+        placeHolder="Barrio*"
+        [itemTemplate]="itemTemplate"
+        [notFoundTemplate]="notFoundTemplate"
+        >
+        </ng-autocomplete>
+        <ng-template #itemTemplate let-item>
+          <a [innerHTML]="item.name"></a>
+        </ng-template>
+          
+          <ng-template #notFoundTemplate let-notFound>
+          <div [innerHTML]="notFound"></div>
+          </ng-template>
+      </div>
+    </div>
+    <div class="row p-2">
+      <div class="col-md-6">        
+        <mat-label>Baños*</mat-label>
+        <select id="top" class="browser-default custom-select" id="Banios" name="Banios" formControlName="Banios">
+          <option value="" disabled="" selected>Baños</option>
+          <option value="1" >1</option>
+          <option value="2" >2</option>
+          <option value="3" >3</option>
+          <option value="4" >4</option>
+          <option value="5" >5</option>
+          <option value="6" >Más de 6</option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <mat-label>Habitaciones*</mat-label>
+        <select id="top" class="browser-default custom-select" name="Habitaciones" formControlName="Habitaciones">
+          <option value="" selected>Habitaciones</option>
+          <option value="1" >1</option>
+          <option value="2" >2</option>
+          <option value="3" >3</option>
+          <option value="4" >4</option>
+          <option value="5" >5</option>
+          <option value="6" >Más de 6</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <mat-label>Garaje*</mat-label>
+        <select id="top" class="browser-default custom-select" id="Garaje" name="Garaje" formControlName="Garaje">
+          <option value="" disabled="" selected>Garaje</option>
+          <option value="1" >1</option>
+          <option value="2" >2</option>
+          <option value="3" >3</option>
+          <option value="4" >4</option>
+          <option value="5" >5</option>
+          <option value="6" >Más de 6</option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <mat-label>Asensor*</mat-label>
+        <select id="top" class="browser-default custom-select" id="Asensor" name="Asensor" formControlName="Asensor">
+          <option value="" disabled="" selected>Ascensor</option>
+          <option value="1" >Si</option>
+          <option value="2" >No</option>
+        </select>
+      </div>
+    </div>
+
+    <!--Footer-->
+    <div class="modal-footer justify-content-center">
+        <button class="btn btn-success" 
+        (click)="onSubmit()">
+        Subir <i class="fas fa-share ml-1 white-text"></i>
+      </button>
+    </div>
+</form>

@@ -1,0 +1,363 @@
+<app-navbar></app-navbar>
+  <!--Main layout-->
+  <div class="container">
+    <script>
+      $(function(){
+    $("[data-toggle='tooltip']").tooltip();
+})
+    </script>
+    <div class="view-account">
+        <section class="module">
+            <div class="module-inner">
+                <div class="side-bar">
+                    <div class="user-info">
+                        <input type="file" class="custom-file-input" id="customFileLangHTML">
+                        <img class="avatar img-thumbnail img-profile img-circle img-responsive" src="{{ users.foto }}" alt="">
+                        <ul class="meta list list-unstyled">
+                            <li class="name">{{ users.nombres }} {{ users.apellidos }}
+                            </li>
+                            <!--<li class="activity">Ultima ves en linea: hoy a las 2:18pm</li>-->
+                        </ul>
+                    </div>
+
+                    <nav class="side-menu">
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                              <a class="nav-link active" data-toggle="tab" href="#profile">
+                                <span class="fa fa-user"></span> Perfil
+                              </a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" id="properties-tab" data-toggle="tab" 
+                                href="#properties" role="tab" aria-controls="properties">
+                                <span class="fa fa-credit-card"></span> Propiedades
+                              </a>
+                          </li>
+                            <li *ngIf="!Otrosuser" class="nav-item">
+                              <a class="nav-link" id="messages-tab" data-toggle="tab" 
+                              href="#messages" role="tab" aria-controls="messages">
+                              <span class="fa fa-envelope"></span>
+                               Mensajes
+                              </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                
+                <!-- Central Modal Medium Success -->
+
+                  <div class="modal fade" id="centralModalSuccess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                  aria-hidden="true">
+                  <div class="modal-dialog modal-notify modal-success modal-lg" role="document">
+                  <!--Content-->
+                  <div class="modal-content" >
+                      <!--Header-->
+                      <div class="modal-header">
+                      <p class="heading lead ">Añadir Inmueble</p>
+                      
+                        <button  type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" class="dark-gray">&times;</span>
+                        </button>
+                      </div> 
+                      
+                      <div class="modal-body">
+                          <app-upload-file></app-upload-file>
+                      </div>
+                  </div>
+                  <!--/.Content-->
+                  </div>
+                  </div>
+                <!-- Central Modal Medium Success-->
+
+                <div class="content-panel">
+                    <div class="content-header-wrapper">
+                        <h2 class="title">Mi perfil</h2>
+                        <!-- Button trigger modal -->
+                        <div *ngIf="!Otrosuser" class="actions">
+                            <a href="" class="btn btn-success btn-rounded" data-toggle="modal" data-target="#centralModalSuccess">Añadir inmueble <i class="fa fa-plus"></i></a>
+                        </div>
+                    </div>
+                    <div class="drive-wrapper drive-grid-view tab-content profile-tab" id="myTabContent">
+
+                      <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        
+                        <div class="row" >
+                            <div class="col-md-6">
+                                <label>Nombre</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p> {{ users.nombres }} {{ users.apellidos }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Email</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p> {{ users.email }} </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Telefono</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p> {{ users.celular }} </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-6">
+                              <label>Años de inmobiliario</label>
+                          </div>
+                          <div class="col-md-6">
+                              <p> {{ users.aniosInmobiliario }} </p>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-6">
+                              <label>Perfil de Facebook</label>
+                          </div>
+                          <div class="col-md-6">
+                              <p> {{ users.PerfilFacebook }} </p>
+                          </div>
+                        </div>
+                        <div *ngIf="users.NombreEmpresa != 'null'"  class="row">
+                          <div class="col-md-6">
+                              <label>Nombre de la empresa</label>
+                          </div>
+                          <div class="col-md-6">
+                              <p> {{ users.NombreEmpresa }} </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="tab-pane fade" id="messages" role="tabpanel" aria-labelledby="messages-tab">
+                        <!--<app-comments></app-comments>-->
+
+                        
+                          <h1>Página web en construcción</h1>
+                          <p>Lo sentimos, no hemos encontrado un mensaje más original para decirte que estamos trabajando en ello.</p>
+                          <h2>Web disponible en:</h2>
+                          <p class="casio" id="reloj">00:00:00</p>
+                        
+                      </div>
+                        <div class="grid-items-wrapper tab-pane fade" id="properties" role="tabpanel" aria-labelledby="properties-tab">                            
+                            <br>                                    
+                            <!--Card-->
+                            <div class="row">
+                                <div  class="col-md-6 mb-4" *ngFor="let property of propertys" >                                                                  
+                                    <div class="card">                              
+                                        <!--Card image-->                                     
+                                        <div class="view" >                      
+                                            <a href="/property/{{ property._id }}">
+                                            <img src="{{ property.Imagenes[0] }}" alt="placeholder" data-size="1600x1067"
+                                            class="img-fluid">
+                                            </a>
+                                        </div>
+                                      
+                                        <!--Card content-->
+                                        <div class="card-body">
+                                            <!--Title-->
+                                            <h4 class="card-title"><strong>{{ property.NombreInmueble }}</strong></h4>
+                                            <hr>
+                                            <!--Text-->
+                                            <p class="card-text mb-3">{{ property.DescripcionInmueble }}</p>
+                                            <p class="card-text mb-3"><strong>Precio: </strong>{{ property.Precio | currency }}</p>
+                                          <div class="row">
+                                            <div ng-if="property.Banios" class="col-md-3">
+                                              <p class="mb-0 font-small font-weight-bold ">Baños: {{ property.Banios }}</p>
+                                            </div>
+                                            <div ng-if="property.Habitaciones" class="col-md-4">
+                                            <p class="mb-0 font-small font-weight-bold">Habitaciones: {{ property.Habitaciones }}</p>
+                                            </div>
+                                            <div ng-if="property.Garaje" class="col-md-3">
+                                              <p class="mb-0 font-small font-weight-bold">Garaje: {{ property.Garaje }}</p>
+                                            </div>
+                                            <div ng-if="property.Asensor" class="col-md-3">  
+                                            <p class="mb-0 font-small font-weight-bold">Asensor: {{ property.Asensor }}</p>
+                                            </div>  
+                                          </div>
+                                          <br>
+                                          <div class="mb-3">
+                                            <div class="row">
+                                              <div ng-if="property.Departamento" class="col-md-6">                  
+                                                <h6>Departamento: {{ property.Departamento }}</h6>                  
+                                              </div>
+                                              <div ng-if="property.Ciudad" class="col-md-6">
+                                                <h6>Ciudad: {{ property.Ciudad }}</h6>
+                                              </div>
+                                              <div ng-if="property.Barrio" class="col-md-6">
+                                                <h6>Barrio: {{ property.Barrio }}</h6>
+                                              </div>
+                                            </div>
+                                          </div>  
+                                          <div *ngIf="!Otrosuser" class="row">
+                                            <div class="col-md-6"> 
+                                                <div class="actions">                                                   
+                                                    <button class="btn btn-primary" (click)="openSm(content,property)" data-toggle="modal" data-target="#centralModalSuccessUpdate">
+                                                        Editar <i class="fa fa-plus"></i>
+                                                    </button>
+                                                    
+                                                </div>                                                                                                    
+                                            </div>
+                                            <div class="col-md-6">                                                
+                                                <div class="actions">                                                   
+                                                    <button class="btn btn-danger" (click)="deleteProperty(property)">
+                                                        Eliminar <i class="fa fa-plus"></i>
+                                                    </button>                                                    
+                                                </div> 
+                                            </div>                           
+                                        </div>
+                                        </div>                                         
+                                    </div>
+                                    <!-- Central Modal Medium Success -->                                    
+                                </div>
+                                <br>
+                            </div>
+                            <!--/.Card-->                                  
+                        </div>                        
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Editar Propiedad</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="myForm">
+            <input type="hidden" id="_id" name="_id" class="form-control" formControlName="_id" [ngModel]="property._id">
+            <div class="form-group shadow-textarea">         
+            <input type="text" name="nameProperty" aria-label="Search" id="NombreInmueble" name="NombreInmueble" [ngModel]="property.NombreInmueble" formControlName="NombreInmueble" class="form-control" value="">
+            </div>
+            <div class="form-group shadow-textarea">
+              <label for="exampleFormControlTextarea6">Descripción del inmueble</label>
+              <textarea class="form-control z-depth-1" id="DescripcionInmueble" name="DescripcionInmueble" [ngModel]="property.DescripcionInmueble" formControlName="DescripcionInmueble" rows="3" placeholder="Ingrese una descripción ..."></textarea>
+            </div>
+          <div class="form-group">
+            <label for="exampleFormControlTextarea6">Precio*</label>
+            <input type="text" name="Precio" aria-label="Search" id="Precio" name="Precio" [ngModel]="property.Precio" formControlName="Precio" class="form-control" value="">
+          </div>
+          <div class="row">
+              <div class="col-md-4">
+                <ng-autocomplete formControlName="Departamento"
+                [ngModel]="property.Departamento"
+                [data]="data1"
+                [searchKeyword]="keyword"
+                placeHolder=" Departamento"
+                (selected)='selectEvent($event)'
+                [itemTemplate]="itemTemplate"
+                [notFoundTemplate]="notFoundTemplate"
+                [disabled]="true"
+                >
+                </ng-autocomplete>
+                <ng-template #itemTemplate let-item>
+                  <a [innerHTML]="item.name"></a>
+                </ng-template>
+                  
+                  <ng-template #notFoundTemplate let-notFound>
+                  <div [innerHTML]="notFound"></div>
+                  </ng-template>
+              </div>
+              
+              <div class="col-md-4">
+                <ng-autocomplete formControlName="Ciudad"
+                [ngModel]="property.Ciudad"
+                [data]="data"
+                [searchKeyword]="keyword"
+                placeHolder="Ciudad"
+                [itemTemplate]="itemTemplate"
+                [notFoundTemplate]="notFoundTemplate"
+                [disabled]="true"
+                >
+                </ng-autocomplete>
+                <ng-template #itemTemplate let-item>
+                  <a [innerHTML]="item.name"></a>
+                </ng-template>
+                  
+                  <ng-template #notFoundTemplate let-notFound>
+                  <div [innerHTML]="notFound"></div>
+                  </ng-template>
+              </div>
+              <div class="col-md-4">
+                <ng-autocomplete formControlName="Barrio"
+                [ngModel]="property.Barrio"
+                [data]="data2"
+                [searchKeyword]="keyword"
+                placeHolder="Barrio*"
+                [itemTemplate]="itemTemplate"
+                [notFoundTemplate]="notFoundTemplate"
+                [disabled]="true"
+                >
+                </ng-autocomplete>
+                <ng-template #itemTemplate let-item>
+                  <a [innerHTML]="item.name"></a>
+                </ng-template>
+                  
+                  <ng-template #notFoundTemplate let-notFound>
+                  <div [innerHTML]="notFound"></div>
+                  </ng-template>
+              </div>
+            </div>
+            <div class="row p-4">
+              <div class="col-md-6">
+                <select id="top" class="browser-default custom-select" id="Banios" [ngModel]="property.Banios" name="Banios" formControlName="Banios">
+                  <option value="" disabled="" selected>Baños</option>
+                  <option value="1" >1</option>
+                  <option value="2" >2</option>
+                  <option value="3" >3</option>
+                  <option value="4" >4</option>
+                  <option value="5" >5</option>
+                  <option value="6" >Más de 6</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <select id="top" class="browser-default custom-select" id="Habitaciones" [ngModel]="property.Habitaciones" name="Habitaciones" formControlName="Habitaciones">
+                  <option value="" disabled="" selected>Habitaciones</option>
+                  <option value="1" >1</option>
+                  <option value="2" >2</option>
+                  <option value="3" >3</option>
+                  <option value="4" >4</option>
+                  <option value="5" >5</option>
+                  <option value="6" >Más de 6</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <select id="top" class="browser-default custom-select" id="Garaje" name="Garaje" [ngModel]="property.Garaje" formControlName="Garaje">
+                  <option value="" disabled="" selected>Garaje</option>
+                  <option value="1" >1</option>
+                  <option value="2" >2</option>
+                  <option value="3" >3</option>
+                  <option value="4" >4</option>
+                  <option value="5" >5</option>
+                  <option value="6" >Más de 6</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <select id="top" class="browser-default custom-select" id="Asensor" name="Asensor" [ngModel]="property.Asensor" formControlName="Asensor">
+                  <option value="" disabled="" selected>Asensor</option>
+                  <option value="1" >Si</option>
+                  <option value="2" >No</option>
+                </select>
+              </div>
+            </div>
+        
+            <!--Footer-->
+            <div class="modal-footer justify-content-center">
+                <button class="btn btn-success" 
+                (click)="onSubmit()">
+                Subir <i class="fas fa-share ml-1 white-text"></i>
+              </button>
+            </div>
+        </form>
+    </div>   
+  </ng-template>
+<!--<app-update-property></app-update-property>-->
+<!--Main layout-->
+<app-footer></app-footer>

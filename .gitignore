@@ -1,0 +1,57 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+/dist
+/tmp
+/out-tsc
+# Only exists if Bazel was run
+/bazel-out
+
+# dependencies
+# Ignore native extensions in the node_modules folder (things changed by npm rebuild)
+node_modules/**/*.node
+node_modules/**/*.o
+node_modules/**/*.a
+node_modules/**/*.mk
+node_modules/**/*.gypi
+node_modules/**/*.target
+node_modules/**/.deps/
+node_modules/**/build/Makefile
+node_modules/**/**/build/Makefile
+
+# profiling files
+chrome-profiler-events*.json
+speed-measure-plugin*.json
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+/typings
+
+# System Files
+.DS_Store
+Thumbs.db
+node_modules
+node_modules

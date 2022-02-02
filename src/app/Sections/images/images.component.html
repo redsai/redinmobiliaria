@@ -1,0 +1,71 @@
+<app-navbar></app-navbar>
+<div class="gallery">
+  <div class="row">
+    <div class="col-md-8 mb-4">
+      <br>
+      <h4 class="card-title"><strong>{{ propertys.NombreInmueble }}</strong></h4>
+      <div class="row">
+          <div *ngFor="let images of propertys.Imagenes" class="col-md-4">
+            <a href="{{ images }}" data-lightbox="roadtrip" >
+              <img src="{{ images }}" alt="placeholder" data-size="1600x1067"
+              class="img-fluid">
+            </a>
+          </div>
+      </div>
+
+      <!--Card content-->
+      <div class="card-body">
+        <!--Title-->
+        <hr>
+        <!--Text-->
+        <p class="card-text mb-3">{{ propertys.DescripcionInmueble }}</p>
+        <p class="card-text mb-3"><strong>Precio: </strong>{{ propertys.Precio | currency }}</p>
+          <div class="row">
+            <div ng-if="property.Banios" class="col-md-3">
+              <p class="mb-0 font-small font-weight-bold ">Baños: {{ propertys.Banios }}</p>
+            </div>
+            <div ng-if="property.Habitaciones" class="col-md-4">
+            <p class="mb-0 font-small font-weight-bold">Habitaciones: {{ propertys.Habitaciones }}</p>
+            </div>
+            <div ng-if="property.Garaje" class="col-md-3">
+              <p class="mb-0 font-small font-weight-bold">Garaje: {{ propertys.Garaje }}</p>
+            </div>
+            <div ng-if="property.Asensor" class="col-md-3">  
+            <p class="mb-0 font-small font-weight-bold">Asensor: {{ propertys.Asensor }}</p>
+            </div>  
+          </div>
+          <br>
+          <div class="mb-3">
+            <div class="row">
+              <div ng-if="property.Departamento" class="col-md-6">                  
+                <h6>Departamento: {{ propertys.Departamento }}</h6>                  
+              </div>
+              <div ng-if="property.Ciudad" class="col-md-6">
+                <h6>Ciudad: {{ propertys.Ciudad }}</h6>
+              </div>
+              <div ng-if="property.Barrio" class="col-md-6">
+                <h6>Barrio: {{ propertys.Barrio }}</h6>
+              </div>
+            </div>
+          </div>
+          <p class="font-small font-weight-bold dark-grey-text mb-1"><i class="far fa-clock-o"></i>
+           Publicado {{ propertys.createdAt | amLocale: 'es' | amTimeAgo }}</p>
+          <p class="font-small grey-text mb-0">{{ propertys.user.nombres }}</p>
+      </div>
+
+    </div>
+    <div class="col-md-4 mb-4">
+      <!--Card-->
+      <br>
+      <h4 class="card-title"><strong>Comentarios</strong></h4>
+      <div class="card">
+        
+        <!--/.Card content-->
+        <app-comments [property]="propertys"></app-comments>
+      </div>
+      
+      <!--/.Card-->
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

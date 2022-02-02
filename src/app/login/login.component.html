@@ -1,0 +1,55 @@
+<div class="row">
+  <div class="col-md-5 sm-6 lg-5 mx-auto my-5">
+    <section class="form-elegant">
+      <mdb-card>
+        <mdb-card-body class="mx-4">
+          <!--Header-->
+          <div class="text-center">
+            <h3 class="dark-grey-text mb-5">
+              <strong>Iniciar sesión</strong>
+            </h3>
+          </div>
+          <form  [formGroup]="myForm" (submit)="onSubmit()" >
+            <!-- Email -->
+            
+             <!--<div *ngIf="correoElec">-->
+              <input type="text" id="defaultRegisterFormEmail" name="email" class="form-control mb-1" placeholder="E-mail" formControlName="email" mdbInput>
+           <!-- </div>
+            <div *ngIf="!correoElec">
+              <input type="text"  style="color: #e94242;"id="defaultRegisterFormEmail" name="email" class="form-control mb-1" placeholder="E-mail" formControlName="email" mdbInput>
+            </div>-->
+            <div *ngIf="myForm.get('email').errors && myForm.get('email').dirty">
+              <p class="font-small red-text d-flex" *ngIf="myForm.get('email').hasError('required')">*El correo electrónico es requirido.</p>
+              <p class="font-small red-text d-flex" *ngIf="myForm.get('email').hasError('pattern')">*Introduce un correo electrónico válido.</p>
+            </div>
+            <!-- Password -->
+            <input type="password" id="password" name="password" formControlName="password" class="form-control mt-4 mb-1" placeholder="Password">
+            <div *ngIf="myForm.get('password').errors && myForm.get('password').dirty">
+              <p class="font-small red-text d-flex" *ngIf="myForm.get('password').hasError('required')">*La contraseña es requerida.</p>
+              <p class="font-small red-text d-flex" *ngIf="myForm.get('password').hasError('minlength')">*Las contraseñas deben tener al menos 6 caracteres.</p>
+            </div>
+            <div class="md-form pb-3">
+              
+              <p class="font-small blue-text d-flex justify-content-end">
+                <a routerLink="/olvidastePassword" class="blue-text ml-1"> Olvidaste tu Password?</a>
+              </p>
+            </div>
+            <div class="text-center mb-1">
+              
+              <button ion-button type="submit"
+              mdbBtn gradient="blue" block="true" rounded="true" class="z-depth-1a waves-light" 
+              mdbWavesEffect>Iniciar sesión</button>
+            </div>
+          </form>
+          <!--Body-->
+        </mdb-card-body>
+        <!--Footer-->
+        <div class="modal-footer mx-5 pt-3 mb-1">
+          <p class="font-small grey-text d-flex justify-content-end">Nuevo en RedSai
+            <a routerLink="/register" class="blue-text ml-1"> Crea una cuenta.</a>
+          </p>
+        </div>
+      </mdb-card>
+    </section>
+  </div>
+</div>

@@ -1,0 +1,96 @@
+<app-navbar></app-navbar>
+<div class="container my-5">
+    <div class="card-body">
+    <h2 class="text-center card-title font-weight-bold mb-2">Configuraciones</h2>
+    </div>
+    <section class="mb-0">
+    <div class="row">
+        
+        <div class="col-md-5 sm-5 lg-5 mx-auto my-2">
+            <div class="card mb-4">
+            <div id="mdb-settings-public-preloader" class="checkout-preloader-container" style="display: none;">
+            <div class="preloader-wrapper big active">
+                <div class="spinner-layer spinner-blue-only">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <!-- Card header -->
+            <div class="card-header"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Información pública</font></font></div>
+            <!--Card content-->
+            <div class="card-body">
+                <!-- Form -->
+                <form [formGroup]="myForm" (submit)="onSubmit()" id="edit-user-form">
+                    <!--Input Name-->
+                    <input type="text" [ngModel]="users.nombres" id="edit-first-name" name="nombres" formControlName="nombres" class="form-control mb-3" placeholder="Nombres">
+                    <!--Input Name-->
+                    <input type="text" id="edit-last-name" [ngModel]="users.apellidos" name="apellidos" formControlName="apellidos" class="form-control mb-3" placeholder="Apellido">
+                    <!--Input Name-->
+                    <input type="text" id="edit-email" [ngModel]="users.email" name="email" formControlName="email" class="form-control mb-3" placeholder="Email">
+                    <!--Input Name-->
+                    <input type="text" id="edit-celular" [ngModel]="users.celular" name="celular" formControlName="celular" class="form-control mb-3" placeholder="Celular">
+                    <!-- Action button -->
+                    <div class="text-center">
+                        <button id="edit-user" type="submit" class="btn btn-info btn-md waves-effect waves-light"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Guardar cambios</font></font></button>
+                    </div>
+                </form>
+                <!-- Form -->
+            </div>
+            </div>
+         </div>
+        <div class="col-md-5 sm-5 lg-5 mx-auto my-2">
+
+            <!--Card-->
+            <div class="card mb-4">
+    
+                <div id="mdb-settings-account-preloader" class="checkout-preloader-container" style="display: none;">
+                <div class="preloader-wrapper big active">
+                    <div class="spinner-layer spinner-blue-only">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="gap-patch">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
+                    </div>
+                </div>
+                </div>    
+                <!-- Card header -->
+                <div class="card-header"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Cambio de contraseña</font></font></div>
+                <!--Card content-->
+                <div class="card-body">
+                    <!-- Form -->
+                    <form [formGroup]="myFormPassword" (submit)="onSubmitPass()" id="user-reset-password-form">
+
+                    <!--Input Name-->                    
+                    <input type="password" id="current_password"  name="current_password" formControlName="current_password" class="form-control mb-3" placeholder="Contraseña actual">
+                    <!--Input Name-->
+                    
+                    <input type="password" id="new_password" name="new_password" formControlName="new_password" class="form-control mb-3" placeholder="Nueva contraseña">
+                    <!--Input Name-->
+                    <input type="password" id="confirm_new_password" name="confirm_new_password" formControlName="confirm_new_password" class="form-control mb-3" placeholder="Confirmar nueva contraseña">
+                    <!-- Action button -->
+                    <div class="text-center">
+                        <button id="user-reset-password" class="btn btn-info btn-md waves-effect waves-light"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Restablecer contraseña</font></font></button>
+                    </div>
+                    </form>
+                    <!-- Form -->
+                </div>
+            </div>
+            <!--/.Card-->
+        </div>
+    </div>
+    </section>
+</div>
+<app-footer></app-footer>

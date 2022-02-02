@@ -1,0 +1,384 @@
+<app-nav></app-nav>
+
+<div class="row">
+  <div class="col-md-5 sm-6 lg-5 mx-auto my-5">
+    <section class="form-elegant">
+      <mdb-card>
+        <mdb-card-body class="mx-4">
+          <!--Header-->
+          <div class="text-center">
+            <h3 class="dark-grey-text mb-5">
+              <strong>Registrate</strong>
+            </h3>
+          </div>
+
+          <form [formGroup]="myForm" (submit)="onSubmit()">
+            <div class="form-row mb-3">
+              <div class="col">
+                <input type="text" id="nombres" name="nombres" formControlName="nombres" class="form-control" placeholder="Nombres">
+                <div *ngIf="myForm.get('nombres').errors && myForm.get('nombres').dirty">
+                  <p class="font-small red-text d-flex" *ngIf="myForm.get('nombres').hasError('required')">*El nombre es requirido.</p>
+                </div>
+              </div>
+              <div class="col">
+                <input type="text" id="apellidos" name="apellidos" class="form-control " formControlName="apellidos" placeholder="Apellidos" mdbInput>
+                <div *ngIf="myForm.get('apellidos').errors && myForm.get('apellidos').dirty">
+                  <p class="font-small red-text d-flex" *ngIf="myForm.get('apellidos').hasError('required')">*Los apellidos son requiridos.</p>
+                </div>
+              </div>
+            </div>
+            <div class="form-row mb-3">
+              <div class="col ">
+                <label for="elegantFormEmailEx" class="text-muted">Fecha de nacimiento</label>
+                <input type="date" name="fechaNacimiento" id="fechaNacimiento" 
+                value="2018-07-22" min="1900-01-01" max="2018-12-31" class="form-control mb-1" 
+                placeholder="Fecha de nacimiento" formControlName="fechaNacimiento">
+                <div *ngIf="myForm.get('fechaNacimiento').errors && myForm.get('fechaNacimiento').dirty">
+                  <p class="font-small red-text d-flex" *ngIf="myForm.get('fechaNacimiento').hasError('required')">*La fecha de nacimiento es requirida.</p>
+                </div>
+              </div>  
+              <div class="col">                
+                <label for="elegantFormEmailEx" class="text-muted">Genero</label> 
+                <select class="custom-select" id="sexo" name="sexo" class="form-control mb-1" 
+                placeholder="Genero" formControlName="sexo">
+                  <option value="F">Mujer</option>
+                  <option value="M">Hombre</option>
+                  <option value="O">Otros</option>
+                </select> 
+                <div *ngIf="myForm.get('sexo').errors && myForm.get('sexo').dirty">
+                  <p class="font-small red-text d-flex" *ngIf="myForm.get('sexo').hasError('required')">*El genero es requirido.</p>
+                </div>
+              </div> 
+            </div>           
+            <div class="form-row mb-3">
+              <div class="col">
+                <input type="text" id="celular" name="celular" class="form-control mb-1" formControlName="celular" placeholder="Celular" mdbInput>
+                <div *ngIf="myForm.get('celular').errors && myForm.get('celular').dirty">
+                  <p class="font-small red-text d-flex" *ngIf="myForm.get('celular').hasError('required')">*El celular es requirido.</p>
+                </div>
+              </div>
+              <div class="col" >
+                <div *ngIf="correoElec">
+                  <input type="text" id="defaultRegisterFormEmail" name="email" class="form-control mb-1" placeholder="E-mail" formControlName="email" mdbInput>
+                </div>
+                <div *ngIf="!correoElec">
+                  <input type="text"  style="color: #e94242;"id="defaultRegisterFormEmail" name="email" class="form-control mb-1" placeholder="E-mail" formControlName="email" mdbInput>
+                </div>
+                <div *ngIf="myForm.get('email').errors && myForm.get('email').dirty">
+                  <p class="font-small red-text d-flex" *ngIf="myForm.get('email').hasError('required')">*El correo electrónico es requirido.</p>
+                  <p class="font-small red-text d-flex" *ngIf="myForm.get('email').hasError('pattern')">*Introduce un correo electrónico válido.</p>
+                </div>
+              </div>
+            </div>
+            <div class="form-row mb-3">
+              <div class="col">
+                <input type="password" id="password" name="password" class="form-control mb-1" placeholder="Password" formControlName="password" mdbInput>
+                <div *ngIf="myForm.get('password').errors && myForm.get('password').dirty">
+                  <p class="font-small red-text d-flex" *ngIf="myForm.get('password').hasError('required')">*La contraseña es requirida.</p>
+                  <p class="font-small red-text d-flex" *ngIf="myForm.get('password').hasError('minlength')">*Las contraseñas deben tener al menos 6 caracteres.</p>
+                </div>
+              </div>
+            </div>          
+              <mat-card-actions>
+                <label for="elegantFormEmailEx" class="mb-0 text-muted">Seleccione el tipo de persona</label> 
+              <div class="row">
+                
+                <div class="col">
+                  <div class="text-center mb-3">
+                    <button class="btn btn-outline-primary waves-effect" type="submit" (click)="btnNatural()" rounded="true" >Persona Natural</button>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="text-center mb-3">
+                    <button class="btn btn-outline-primary waves-effect" type="submit" (click)="btnJuridica()">Persona Juridica</button>
+                  </div>
+                </div>
+              </div>
+              </mat-card-actions>
+              
+              <div *ngIf="natural">
+                <hr>
+                <div class="text-center mb-3 my-3">
+                  <p class="h4 mb-4">Información general</p>
+                </div>
+                <div class="text-muted">
+                  <h5 class="text-black-50 mb-2">
+                    <strong>Seleccione una foto para su perfil</strong>
+                  </h5>
+                </div>
+                <div class="file-upload-wrapper">
+                  <div *ngIf="files ==''" class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop (onFileDropped)="uploadFile($event)">
+                    <input hidden type="file" accept="image/png, .jpeg, .jpg" #fileInput (change)="uploadFile($event.target.files)" formControlName="foto" name="foto" class="form-control" />
+                  </div> 
+                  <div *ngIf="files !=''" class="files-list">
+                    <p> {{ files }} </p>
+                    <button class="delete-file" (click)="deleteAttachment(i)">
+                      <img src="https://raw.githubusercontent.com/MariemChaabeni/angular7-upload-file/master/src/assets/Recycle_Bin_Full.png">
+                    </button>              
+                  </div>                                                
+                </div>           
+                <div class="text-muted">
+                  <h5 class="text-black-50 mb-2">
+                    <strong>Adjuntar cedula por las dos partes en formato pdf</strong>
+                  </h5>
+                </div>
+                <div class="file-upload-wrapper">
+                  <div *ngIf="cedula ==''" class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop (onFileDropped)="uploadFileCedula($event)">
+                    <input hidden type="file" accept="application/pdf" #fileInput (change)="uploadFileCedula($event.target.files)" formControlName="cedula" name="cedula" class="form-control" />
+                  </div> 
+                  <div *ngIf="cedula !=''" class="files-list">
+                    <p> {{ cedula }} </p>
+                    <button class="delete-file" (click)="deleteAttachmentCedula(i)">
+                      <img src="https://raw.githubusercontent.com/MariemChaabeni/angular7-upload-file/master/src/assets/Recycle_Bin_Full.png">
+                    </button>              
+                  </div>                                                
+                </div>  
+                <div class="row">
+                  <div class="col">
+                    <ng-autocomplete formControlName="Ciudad"
+                    [data]="data"
+                    [searchKeyword]="keyword"
+                    placeHolder="Ciudad o municipio*"
+                    [itemTemplate]="itemTemplate"
+                    [notFoundTemplate]="notFoundTemplate"
+                    >
+                    </ng-autocomplete>
+                    <ng-template #itemTemplate let-item>
+                      <a [innerHTML]="item.name"></a>
+                    </ng-template>
+                      
+                      <ng-template #notFoundTemplate let-notFound>
+                      <div [innerHTML]="notFound"></div>
+                      </ng-template>
+                  </div>
+                  <div class="col">
+                    <input type="text" id="PerfilFacebook" name="PerfilFacebook" formControlName="PerfilFacebook" class="form-control mb-4" placeholder="Perfil de Facebook">
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="col">                    
+                    <label for="elegantFormEmailEx" class="mb-0 text-muted">Es inmobiliario independiente?</label> 
+                    <select class="custom-select" id="inmobiliarioIndep" name="inmobiliarioIndep" class="form-control mb-2" 
+                    placeholder="inmobiliarioIndep" formControlName="inmobiliarioIndep">
+                      <option value="si">Si</option>
+                      <option value="no">No</option>
+                    </select> 
+                    <div *ngIf="myForm.get('inmobiliarioIndep').errors && myForm.get('inmobiliarioIndep').dirty">
+                      <p class="font-small red-text d-flex" *ngIf="myForm.get('inmobiliarioIndep').hasError('required')">*El campo inmobiliadio independinte es requirido.</p>
+                    </div>
+                  </div>
+                  <div class="col">                    
+                    <label for="elegantFormEmailEx" class="mb-0 text-muted">Hace cuantos años es inmobiliario</label> 
+                    <select class="custom-select" id="aniosInmobiliario" name="aniosInmobiliario" class="form-control mb-2" 
+                    placeholder="aniosInmobiliario" formControlName="aniosInmobiliario">
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+                      <option value="9">9</option>
+                      <option value="10">10</option>
+                      <option value="Mas10">Más de 10</option>
+                    </select> 
+                    <div *ngIf="myForm.get('aniosInmobiliario').errors && myForm.get('aniosInmobiliario').dirty">
+                      <p class="font-small red-text d-flex" *ngIf="myForm.get('aniosInmobiliario').hasError('required')">*El campo años de inmobiliario es requirido.</p>
+                    </div>
+                  </div> 
+                </div>   
+                <div class="text-muted">
+                  <h5 class="text-black-50 my-2">
+                    <strong>Adjuntar tarjeta de presentación por las dos partes en formato pdf</strong>
+                  </h5>
+                </div>
+                <div *ngIf="myForm.get('tarjetaPresntacion').errors && myForm.get('tarjetaPresntacion').dirty">
+                  <p class="font-small red-text d-flex" *ngIf="myForm.get('tarjetaPresntacion').hasError('required')">*El campo tarjeta de presentación es requirido.</p>
+                </div>
+                <div class="file-upload-wrapper">
+                  <div *ngIf="tarjetaPresntacion ==''" class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop (onFileDropped)="uploadFileTarjetaPresenta($event)">
+                    <input hidden type="file" accept="application/pdf" #fileInput (change)="uploadFileTarjetaPresenta($event.target.files)" formControlName="tarjetaPresntacion" name="tarjetaPresntacion" class="form-control" />
+                  </div> 
+                  <div *ngIf="tarjetaPresntacion !=''" class="files-list">
+                    <p> {{ tarjetaPresntacion }} </p>
+                    <button class="delete-file" (click)="deleteAttachmentTarjetaPresenta(i)">
+                      <img src="https://raw.githubusercontent.com/MariemChaabeni/angular7-upload-file/master/src/assets/Recycle_Bin_Full.png">
+                    </button>              
+                  </div>                                                
+                </div>     
+                <div class="text-muted">
+                  <h5 class="text-black-50 my-2">
+                    <strong>Adjuntar Brochure empresarial en formato pdf</strong>
+                  </h5>
+                </div>
+                <div class="file-upload-wrapper">
+                  <div *ngIf="brochureEmpresarial ==''" class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop (onFileDropped)="uploadFileBrochureEmpresarial($event)">
+                    <input hidden type="file" accept="application/pdf" #fileInput (change)="uploadFileBrochureEmpresarial($event.target.files)" formControlName="brochureEmpresarial" name="brochureEmpresarial" class="form-control" />
+                  </div> 
+                  <div *ngIf="brochureEmpresarial !=''" class="files-list">
+                    <p> {{ tarjetaPresntacion }} </p>
+                    <button class="delete-file" (click)="deleteAttachmentBrochureEmpresarial(i)">
+                      <img src="../../assets/Images/Recycle_Bin_Full.png">
+                    </button>              
+                  </div>                                                
+                </div>  
+              </div>
+
+              <div *ngIf="juridica">
+                <hr>
+                <div class="text-center mb-3 my-3">
+                  <p class="h4 mb-4">Información general</p>
+                </div>
+                <div class="text-muted">
+                  <h5 class="text-black-50 mb-2">
+                    <strong>Seleccione una foto para su perfil</strong>
+                  </h5>
+                </div>
+                <div class="file-upload-wrapper">
+                  <div *ngIf="files ==''" class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop (onFileDropped)="uploadFile($event)">
+                    <input hidden type="file" accept="image/png, .jpeg, .jpg" #fileInput (change)="uploadFile($event.target.files)" formControlName="foto" name="foto" class="form-control" />
+                  </div> 
+                  <div *ngIf="files !=''" class="files-list">
+                    <p> {{ files }} </p>
+                    <button class="delete-file" (click)="deleteAttachment(i)">
+                      <img src="https://raw.githubusercontent.com/MariemChaabeni/angular7-upload-file/master/src/assets/Recycle_Bin_Full.png">
+                    </button>              
+                  </div>                                                
+                </div>           
+                <div class="text-muted">
+                  <h5 class="text-black-50 mb-2">
+                    <strong>Adjuntar cedula por las dos partes en formato pdf</strong>
+                  </h5>
+                </div>
+                <div class="file-upload-wrapper">
+                  <div *ngIf="cedula ==''" class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop (onFileDropped)="uploadFileCedula($event)">
+                    <input hidden type="file" accept="application/pdf" #fileInput (change)="uploadFileCedula($event.target.files)" formControlName="cedula" name="cedula" class="form-control" />
+                  </div> 
+                  <div *ngIf="cedula !=''" class="files-list">
+                    <p> {{ cedula }} </p>
+                    <button class="delete-file" (click)="deleteAttachmentCedula(i)">
+                      <img src="https://raw.githubusercontent.com/MariemChaabeni/angular7-upload-file/master/src/assets/Recycle_Bin_Full.png">
+                    </button>              
+                  </div>                                                
+                </div>  
+                <div class="row">
+                  <div class="col">
+                    <ng-autocomplete formControlName="Ciudad"
+                    [data]="data"
+                    [searchKeyword]="keyword"
+                    placeHolder="Ciudad o municipio*"
+                    [itemTemplate]="itemTemplate"
+                    [notFoundTemplate]="notFoundTemplate"
+                    >
+                    </ng-autocomplete>
+                    <ng-template #itemTemplate let-item>
+                      <a [innerHTML]="item.name"></a>
+                    </ng-template>
+                      
+                      <ng-template #notFoundTemplate let-notFound>
+                      <div [innerHTML]="notFound"></div>
+                      </ng-template>
+                  </div>
+                  <div class="col">
+                    <input type="text" id="PerfilFacebook" name="PerfilFacebook" formControlName="PerfilFacebook" class="form-control mb-4" placeholder="Perfil de Facebook">
+                  </div>
+                </div>
+
+                <div class="text-center">
+                  <hr>
+                  <div class="text-center mb-3 my-3">
+                    <p class="h4 mb-4">Perfil comercial</p>
+                  </div>
+                </div>
+                <div class="row"> 
+                  <div class="col">
+                    <input type="text" id="NombreEmpresa" name="NombreEmpresa" formControlName="NombreEmpresa" class="form-control mb-4" placeholder="Empresa donde trabaja">
+                  </div>
+                  <div class="col">
+                    <input type="text" id="NitEmpresa" name="NitEmpresa" formControlName="NitEmpresa" class="form-control mb-4" placeholder="Nit de la empresa">
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="col">                    
+                    <label for="elegantFormEmailEx" class="mb-0 text-muted">Es inmobiliario independiente?</label> 
+                    <select class="custom-select" id="inmobiliarioIndep" name="inmobiliarioIndep" class="form-control mb-2" 
+                    placeholder="inmobiliarioIndep" formControlName="inmobiliarioIndep">
+                      <option value="si">Si</option>
+                      <option value="no">No</option>
+                    </select> 
+                  </div>
+                  <div class="col">                    
+                    <label for="elegantFormEmailEx" class="mb-0 text-muted">Hace cuantos años es inmobiliario</label> 
+                    <select class="custom-select" id="aniosInmobiliario" name="aniosInmobiliario" class="form-control mb-2" 
+                    placeholder="aniosInmobiliario" formControlName="aniosInmobiliario">
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+                      <option value="9">9</option>
+                      <option value="10">10</option>
+                      <option value="Mas10">Más de 10</option>
+                    </select> 
+                  </div> 
+                </div>   
+                <div class="text-muted">
+                  <h5 class="text-black-50 my-2">
+                    <strong>Adjuntar tarjeta de presentación por las dos partes en formato pdf</strong>
+                  </h5>
+                </div>
+                <div *ngIf="myForm.get('tarjetaPresntacion').errors && myForm.get('tarjetaPresntacion').dirty">
+                  <p class="font-small red-text d-flex" *ngIf="myForm.get('tarjetaPresntacion').hasError('required')">*El campo tarjeta de presentación es requirido.</p>
+                </div>
+                <div class="file-upload-wrapper">
+                  <div *ngIf="tarjetaPresntacion ==''" class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop (onFileDropped)="uploadFileTarjetaPresenta($event)">
+                    <input hidden type="file" accept="application/pdf" #fileInput (change)="uploadFileTarjetaPresenta($event.target.files)" formControlName="tarjetaPresntacion" name="tarjetaPresntacion" class="form-control" />
+                  </div> 
+                  <div *ngIf="tarjetaPresntacion !=''" class="files-list">
+                    <p> {{ tarjetaPresntacion }} </p>
+                    <button class="delete-file" (click)="deleteAttachmentTarjetaPresenta(i)">
+                      <img src="https://raw.githubusercontent.com/MariemChaabeni/angular7-upload-file/master/src/assets/Recycle_Bin_Full.png">
+                    </button>              
+                  </div>                                                
+                </div>     
+                <div class="text-muted">
+                  <h5 class="text-black-50 my-2">
+                    <strong>Adjuntar Brochure empresarial en formato pdf</strong>
+                  </h5>
+                </div>
+                <div class="file-upload-wrapper">
+                  <div *ngIf="brochureEmpresarial ==''" class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop (onFileDropped)="uploadFileBrochureEmpresarial($event)">
+                    <input hidden type="file" accept="application/pdf" #fileInput (change)="uploadFileBrochureEmpresarial($event.target.files)" formControlName="brochureEmpresarial" name="brochureEmpresarial" class="form-control" />
+                  </div> 
+                  <div *ngIf="brochureEmpresarial !=''" class="files-list">
+                    <p> {{ tarjetaPresntacion }} </p>
+                    <button class="delete-file" (click)="deleteAttachmentBrochureEmpresarial(i)">
+                      <img src="../../assets/Images/Recycle_Bin_Full.png">
+                    </button>              
+                  </div>                                                
+                </div>    
+              </div>
+              <div class="text-center mb-3">
+                <button ion-button block type="submit" [disabled]="myForm.invalid" mdbBtn gradient="blue" block="true" rounded="true" class="z-depth-1a waves-light" mdbWavesEffect>Registrarte</button>
+              </div>
+          </form>
+          <!--Body-->
+        </mdb-card-body>
+        
+        <div class="modal-footer mx-5 pt-3 mb-1">
+          <p class="font-small  ">Si te registras, significa que aceptas 
+            los <a routerLink="/TerminosDeUso" class="blue-text ml-1"> Terminos de uso </a>  y la 
+            <a routerLink="/PoliticaPrivacidad" class="blue-text ml-1"> Política de privacidad</a>, incluido el
+            <a routerLink="/PoliticaUsoCookies" class="blue-text ml-1">Uso de cookies</a>. Otros usuarios podrán encontrarte
+            por tu correo electrónico o tu número de teléfono si los proporcionas.        
+          </p>
+        </div>
+      </mdb-card>
+    </section>
+  </div>
+</div>

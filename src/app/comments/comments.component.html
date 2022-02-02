@@ -1,0 +1,35 @@
+
+  <div class="panel panel-default" *ngFor="let comment of property.comment">
+      <div class="col-md-12">
+        <div class="media">
+          <div class="media-left"> <a href="/profile/{{ comment.user._id }}"> <img src="{{ comment.user.foto }}" alt="" class="media-object"> </a> </div>
+          <div class="media-body">
+            <a href="/profile/{{ comment.user._id }}"><h4 class="media-heading"> &nbsp;&nbsp;{{ comment.user.nombres }}<br></h4></a>
+            <p class="font-small font-weight-bold dark-grey-text mb-1"><i class="far fa-clock-o"></i>&nbsp;&nbsp;
+              Publicado {{ comment.createdAt | amLocale: 'es' | amTimeAgo }}</p>
+              <br>
+              <p class="card-text mb-3">{{ comment.descripcion }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="col-md-12 border-top">
+        <div class="status-upload card-body">
+          <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+            <label>Comentarios</label>
+            <textarea class="form-control" placeholder="Comenta aquí..." laceholder="Respuesta"
+            name="descripcion"
+            ngModel mdInput></textarea>
+            <br>
+            <ul class="nav nav-pills pull-left ">
+              <li><a title=""><i class="glyphicon glyphicon-bullhorn"></i></a></li>
+              <li><a title=""><i class=" glyphicon glyphicon-facetime-video"></i></a></li>
+              <li><a title=""><i class="glyphicon glyphicon-picture"></i></a></li>
+            </ul>
+            <button type="submit" class="btn btn-success pull-right"> Comentar</button>
+          </form>
+        </div>
+        <!-- Status Upload  --> 
+      </div>
+    </div>
